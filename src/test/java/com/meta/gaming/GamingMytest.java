@@ -1,14 +1,16 @@
 package com.meta.gaming;
 
 
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+
+
+import org.junit.Before;
+import org.junit.Test;
 
 import io.restassured.RestAssured;
 
 public class GamingMytest {
 	
-	@BeforeTest
+	@Before
 	public void start()
 	{
 		RestAssured.baseURI="http://localhost:9090";
