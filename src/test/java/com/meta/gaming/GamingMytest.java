@@ -3,112 +3,115 @@ package com.meta.gaming;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import io.restassured.RestAssured;
 
 public class GamingMytest {
-	
+
 	@Before
 	public void start()
 	{
-		RestAssured.baseURI="http://localhost:9090";
+		RestAssured.baseURI="http://localhost:6060";
 	}
-	
-	@Test
+
+	//@Test
 	public void getAllStudent()
 	{
 		System.out.println("===getAllStudent====");
-		
+
 		RestAssured.
-		    given().contentType("application/json").
-		    when().get("/student/list").
-		    prettyPrint();
+		given().contentType("application/json").
+		when().get("/student/list").
+		prettyPrint();
 	}	
-	
-	
+
+
 	//@Test
 	public void getIndividualStudent()
 	{
 		System.out.println("===getIndividualStudent====");
-		
+
 		RestAssured.
-	    given().contentType("application/json").
-	    when().get("/student/10").
-	    prettyPrint();
+		given().contentType("application/json").
+		when().get("/student/10").
+		prettyPrint();
 	}
-	
-	//@Test
+
+	@Test
 	public void createStudent()
 	{
 		System.out.println("===createStudent====");
 		
-		String stud="{\r\n"
-				+ "        \"firstName\": \"Saurab\",\r\n"
-				+ "        \"lastName\": \"Changeit\",\r\n"
-				+ "        \"email\": \"saurab@gmail.com\",\r\n"
-				+ "        \"programme\": \"Maths\",\r\n"
-				+ "        \"courses\": [\r\n"
-				+ "            \"Maths1\",\r\n"
-				+ "            \"Maths2\",\r\n"
-				+ "            \"Maths2\"\r\n"
-				+ "        ]\r\n"
-				+ "    }";
+		List<String> cour= new ArrayList<>();
+		cour.add("Phys");
+		cour.add("Chem");
+		cour.add("Math");
+
+		Student student= new Student();
+		student.setFirstName("Dev");
+		student.setLastName("Test");
+		student.setEmail("Dev.testShekdar@gmail.com");
+		student.setProgramme("DataScience");
+		student.setCourses(cour);
 		
 		RestAssured.
-	    given().contentType("application/json").body(stud).
-	    when().post("/student").
-	    prettyPrint();
+		given().contentType("application/json").body(student).
+		when().post("/student").
+		prettyPrint();
 	}
-	
-	//@Test
+
+	@Test
 	public void updateStudent()
 	{
 		System.out.println("===updateStudent====");
-		
-		String stud="{\r\n"
-				+ "        \"firstName\": \"Rajesh\",\r\n"
-				+ "        \"lastName\": \"Changeit\",\r\n"
-				+ "        \"email\": \"Rajesh@gmail.com\",\r\n"
-				+ "        \"programme\": \"Science\",\r\n"
-				+ "        \"courses\": [\r\n"
-				+ "            \"Science1\",\r\n"
-				+ "            \"Science2\",\r\n"
-				+ "            \"Science2\"\r\n"
-				+ "        ]\r\n"
-				+ "    }";
+
+		List<String> cour= new ArrayList<>();
+		cour.add("Machine Learning");
+		cour.add("Automation");
+		cour.add("manual");
+
+		Student student= new Student();
+		student.setFirstName("Update");
+		student.setLastName("Student");
+		student.setEmail("Update.Student@gmail.com");
+		student.setProgramme("DataScience");
+		student.setCourses(cour);
 		
 		RestAssured.
-	    given().contentType("application/json").body(stud).
-	    when().put("/student/101").
-	    prettyPrint();
+		given().contentType("application/json").body(student).
+		when().put("/student/101").
+		prettyPrint();
 	}
-	
-	//@Test
+
+	@Test
 	public void patchStudent()
 	{
 		System.out.println("===patchStudent====");
 		
-		String stud="{\r\n"
-				+ "	\"email\": \"DevyaniChanged@gmail.com\"\r\n"
-				+ "}";
+		
+		Student student= new Student();
+		student.setEmail("saurab.dey@gmail.com");
 		
 		RestAssured.
-	    given().contentType("application/json").body(stud).
-	    when().patch("/student/101").
-	    prettyPrint();
+		given().contentType("application/json").body(student).
+		when().patch("/student/101").
+		prettyPrint();
 	}
-	
-	//@Test
+
+	@Test
 	public void deleteStudent()
 	{
 		System.out.println("===deleteStudent====");
-		
+
 		RestAssured.
-	    given().contentType("application/json").
-	    when().delete("/student/101").
-	    prettyPrint();
+		given().contentType("application/json").
+		when().delete("/student/101").
+		prettyPrint();
 	}
 
 }
