@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.javafaker.Faker;
+
 import io.restassured.RestAssured;
 
 public class GamingMytest {
@@ -16,7 +18,7 @@ public class GamingMytest {
 	@Before
 	public void start()
 	{
-		RestAssured.baseURI="http://localhost:6060";
+		RestAssured.baseURI="http://localhost:9090";
 	}
 
 	//@Test
@@ -30,7 +32,6 @@ public class GamingMytest {
 		prettyPrint();
 	}	
 
-
 	//@Test
 	public void getIndividualStudent()
 	{
@@ -41,22 +42,36 @@ public class GamingMytest {
 		when().get("/student/10").
 		prettyPrint();
 	}
-
+	
 	@Test
+	public void getAllStudentQueryParam()
+	{
+		System.out.println("===getAllStudentpathQueryParam====");
+
+		RestAssured.
+			given()
+			   .pathParam("myPath", "list").
+			     queryParam("programme", "Computer Science").queryParam("limit", "3")
+			     .contentType("application/json").
+			when().get("/student/{myPath}").
+			prettyPrint();
+	}	
+	//@Test
 	public void createStudent()
 	{
 		System.out.println("===createStudent====");
+		Faker faker = new Faker();
 		
 		List<String> cour= new ArrayList<>();
-		cour.add("Phys");
-		cour.add("Chem");
-		cour.add("Math");
+		cour.add("Math1");
+		cour.add("Math2");
+		cour.add("Math3");
 
 		Student student= new Student();
-		student.setFirstName("Dev");
-		student.setLastName("Test");
-		student.setEmail("Dev.testShekdar@gmail.com");
-		student.setProgramme("DataScience");
+		student.setFirstName(faker.name().firstName());
+		student.setLastName(faker.name().lastName());
+		student.setEmail(faker.internet().emailAddress());
+		student.setProgramme(faker.book().publisher());
 		student.setCourses(cour);
 		
 		RestAssured.
@@ -65,21 +80,22 @@ public class GamingMytest {
 		prettyPrint();
 	}
 
-	@Test
+	//@Test
 	public void updateStudent()
 	{
 		System.out.println("===updateStudent====");
-
+		Faker faker = new Faker();
+		
 		List<String> cour= new ArrayList<>();
 		cour.add("Machine Learning");
 		cour.add("Automation");
 		cour.add("manual");
 
 		Student student= new Student();
-		student.setFirstName("Update");
-		student.setLastName("Student");
-		student.setEmail("Update.Student@gmail.com");
-		student.setProgramme("DataScience");
+		student.setFirstName(faker.name().firstName());
+		student.setLastName(faker.name().firstName());
+		student.setEmail(faker.internet().emailAddress());
+		student.setProgramme(faker.book().publisher());
 		student.setCourses(cour);
 		
 		RestAssured.
@@ -88,7 +104,7 @@ public class GamingMytest {
 		prettyPrint();
 	}
 
-	@Test
+	//@Test
 	public void patchStudent()
 	{
 		System.out.println("===patchStudent====");
@@ -103,7 +119,7 @@ public class GamingMytest {
 		prettyPrint();
 	}
 
-	@Test
+	//@Test
 	public void deleteStudent()
 	{
 		System.out.println("===deleteStudent====");
