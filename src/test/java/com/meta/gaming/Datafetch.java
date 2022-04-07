@@ -1,7 +1,9 @@
 package com.meta.gaming;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,5 +51,20 @@ public class Datafetch {
 									then().extract().path("courses");
 		
 		System.out.println("===="+value);
+		
+		List<String> expectedList=new ArrayList<>();
+		expectedList.add("Anatomy");
+		expectedList.add("Biochemistry");
+		expectedList.add("Genetics");
+		expectedList.add("uman Behavior");
+		
+		//Junit
+		Assert.assertEquals(expectedList, value);
+		
+		//TestNG
+		org.testng.Assert.assertEquals(value, expectedList);
+		
+		//Hamcrest
+		
 	}	
 }
