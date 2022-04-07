@@ -33,7 +33,7 @@ public class MyClass {
 
 		List<String> allvalue= valid.extract().path("courses[2]");
 
-		String fN= valid.extract().path("firstName");
+		String fN= valid.extract().path("firstName[2]");
 
 		/*
 		 * List<String> allvalue = 
