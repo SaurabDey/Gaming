@@ -35,13 +35,13 @@ public class MyClass {
 
 		String fN= valid.extract().path("firstName[2]");
 
-		/*
-		 * List<String> allvalue = 
-		 * RestAssured. given().contentType("application/json").when().get("/student/list").then().extract().path("courses[2]");
-		 * 
-		 * String fn = 
-		 * RestAssured. given().contentType("application/json").when().get("/student/list").then().extract().path("firstname");
-		 */
+/*
+* List<String> allvalue = 
+* RestAssured. given().contentType("application/json").when().get("/student/list").then().extract().path("courses[2]");
+* 
+* String fn = 
+* RestAssured. given().contentType("application/json").when().get("/student/list").then().extract().path("firstname");
+*/
 	}	
 
 }

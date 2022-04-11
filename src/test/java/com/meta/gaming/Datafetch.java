@@ -6,8 +6,9 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import static org.hamcrest.Matchers.*; 
 
 public class Datafetch {
 
@@ -40,7 +41,7 @@ public class Datafetch {
 	}	
 	
 	
-	@Test
+	//@Test
 	public void getindiStudent()
 	{
 		System.out.println("===getindividualStudent====");
@@ -67,4 +68,40 @@ public class Datafetch {
 		//Hamcrest
 		
 	}	
+	
+	
+	@Test
+	public void AssertStudent()
+	{
+		System.out.println("===Hamcrest====");
+
+		Response response = RestAssured.given().contentType("application/json").
+								when().get("/student/list");
+		
+		
+		
+		//Hard Assert of Hamcrest
+//		response.then() 
+//					.body("firstName[1]", equalTo("Murphy"))//pass
+//					.body("courses[1][1]", equalTo("StatisticsXYZ")) //fail
+//					.body("programme[1]",equalTo("Financial Analysis"))//pass
+//					.body("email[1]",equalTo("faucibus.orci.luctus@Duisac.netXYZ"));//fail
+//		
+		//Soft Assert of Hamcrest
+//		 response.then() 
+//		         .body("firstName[1]", equalTo("Murphy") ,//pass
+//		        		 "courses[1][1]",equalTo("StatisticsXYZ"), //fail
+//		        		 "programme[1]", equalTo("Financial Analysis"),//pass
+//		        		 "email[1]",equalTo("faucibus.orci.luctus@Duisac.netXYZ")//fail
+//		        		 );
+//		 
+
+		//use import static org.hamcrest.Matchers.*; 
+		//http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matchers.html
+		response.then().body("courses[1]", hasItem( "Statistics"));
+		response.then().body("id[1]", greaterThan(1));
+		response.then().body("firstName[1]", equalToIgnoringCase( "murphY"));
+		
+		
+	}
 }
