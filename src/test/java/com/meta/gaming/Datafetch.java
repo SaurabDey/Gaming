@@ -1,11 +1,22 @@
 package com.meta.gaming;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import static org.hamcrest.Matchers.*; 
@@ -70,8 +81,8 @@ public class Datafetch {
 	}	
 	
 	
-	@Test
-	public void AssertStudent()
+	//@Test//----------Monday-----------
+	public void HamcrestAssertStudent()
 	{
 		System.out.println("===Hamcrest====");
 
@@ -101,7 +112,54 @@ public class Datafetch {
 		response.then().body("courses[1]", hasItem( "Statistics"));
 		response.then().body("id[1]", greaterThan(1));
 		response.then().body("firstName[1]", equalToIgnoringCase( "murphY"));
+	}
+	
+	
+	
+	
+	//@Test//----------Tuesday----------
+	public void JSONAssertStudent() throws IOException, JSONException
+	{
+		Response response = RestAssured.
+						given()
+							.pathParam("myPath", "list").
+							queryParam("programme", "Computer Science").queryParam("limit", "3")
+							.contentType("application/json").
+				     	when().get("/student/{myPath}");
 		
+		String actual= response.getBody().asString();
+		System.out.println(actual);
+		
+		String expected = new String(Files.readAllBytes(Paths.get("Resource\\data.txt")));
+		System.out.println(expected);
+		
+		JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
+
+		//Assert.assertEquals(expected, actual);
+	}
+	
+
+	@Test
+	public void JSONSIMPLE() throws ParseException
+	{
+		Response response = RestAssured.
+				given()
+						.pathParam("myPath", "list").
+						queryParam("programme", "Computer Science").queryParam("limit", "3")
+						.contentType("application/json").
+		     	when().get("/student/{myPath}");
+		
+		JSONParser parse= new JSONParser();
+		
+		JSONArray myJSON=(JSONArray) parse.parse(response.getBody().asString());
+		
+		for (int i = 0; i < myJSON.size(); i++) {
+				
+			JSONObject myObject = (JSONObject) myJSON.get(i);
+			
+			System.out.println( myObject.get("email"));
+			
+		}
 		
 	}
 }
