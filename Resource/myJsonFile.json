@@ -1,0 +1,41 @@
+[
+  {
+    "id": 3,
+    "firstName": "Reece",
+    "lastName": "Jason",
+    "email": "tincidunt.dui@ultricessit.co.uk",
+    "programme": "Computer Science",
+    "courses": [
+      "Calculus",
+      "Algorithms",
+      "Software Development",
+      "Ethics"
+    ]
+  },
+  {
+    "id": 17,
+    "firstName": "Amal",
+    "lastName": "Emery",
+    "email": "turpis.egestas.Aliquam@fermentum.net",
+    "programme": "Computer Science",
+    "courses": [
+      "Calculus",
+      "Algorithms",
+      "Software Development",
+      "Ethics"
+    ]
+  },
+  {
+    "id": 4,
+    "firstName": "Orson",
+    "lastName": "Armando",
+    "email": "nascetur@conguea.com",
+    "programme": "Computer Science",
+    "courses": [
+      "Calculus",
+      "Algorithms",
+      "Software Development",
+      "Ethics"
+    ]
+  }
+]

@@ -1,6 +1,8 @@
 package com.meta.gaming;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -116,30 +118,9 @@ public class Datafetch {
 	
 	
 	
-	
-	//@Test//----------Tuesday----------
-	public void JSONAssertStudent() throws IOException, JSONException
-	{
-		Response response = RestAssured.
-						given()
-							.pathParam("myPath", "list").
-							queryParam("programme", "Computer Science").queryParam("limit", "3")
-							.contentType("application/json").
-				     	when().get("/student/{myPath}");
-		
-		String actual= response.getBody().asString();
-		System.out.println(actual);
-		
-		String expected = new String(Files.readAllBytes(Paths.get("Resource\\data.txt")));
-		System.out.println(expected);
-		
-		JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
 
-		//Assert.assertEquals(expected, actual);
-	}
-	
 
-	@Test
+	//@Test--Thursday
 	public void JSONSIMPLE() throws ParseException
 	{
 		Response response = RestAssured.
@@ -162,4 +143,79 @@ public class Datafetch {
 		}
 		
 	}
+	
+	//@Test//--Thursday
+	public void JSONSIMPLEAnotherExample() throws ParseException
+	{
+		Response response = RestAssured.
+				    given()
+				       .baseUri("https://reqres.in").contentType("application/json").
+			     	when().get("/api/users?page=2");
+		
+		System.out.println(response.getBody().asString());
+		
+		JSONParser parser= new JSONParser();
+		
+		JSONObject allData   =(JSONObject) parser.parse(response.getBody().asString());
+		System.out.println("============");
+		System.out.println(allData.get("total"));
+		System.out.println(allData.get("page"));
+		System.out.println(allData.get("data"));
+		System.out.println(allData.get("support"));
+		
+		JSONArray  dataJson=(JSONArray) allData.get("data");
+		JSONObject firstposition= (JSONObject) dataJson.get(1);
+					System.out.println(firstposition.get("first_name"));
+					System.out.println(firstposition.get("last_name"));
+		
+		JSONObject supportData=(JSONObject) allData.get("support");
+			System.out.println(supportData.get("url"));
+			System.out.println(supportData.get("text"));
+		
+	}
+	
+	
+	//@Test//----------Tuesday----------
+		public void JSONAssertStudent() throws IOException, JSONException
+		{
+			Response response = RestAssured.
+							given()
+								.pathParam("myPath", "list").
+								queryParam("programme", "Computer Science").queryParam("limit", "3")
+								.contentType("application/json").
+					     	when().get("/student/{myPath}");
+			
+			String actual= response.getBody().asString();
+			System.out.println(actual);
+			
+			String expected = new String(Files.readAllBytes(Paths.get("Resource\\data.txt")));
+			System.out.println(expected);
+			
+			JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
+
+			//Assert.assertEquals(expected, actual);
+		}
+		
+		@Test//----------Tuesday----------
+		public void JSONAssertStudentbutUsingJSONSIMPLE() throws IOException, JSONException, ParseException
+		{
+					Response response = RestAssured.
+									given()
+										.pathParam("myPath", "list").
+										queryParam("programme", "Computer Science").queryParam("limit", "3")
+										.contentType("application/json").
+							     	when().get("/student/{myPath}");
+					
+					String actual= response.getBody().asString();
+					System.out.println(actual);
+					
+					Reader read= new FileReader("Resource\\myJsonFile.json");
+					JSONParser parse= new JSONParser();
+					String expected=parse.parse(read).toString();
+					System.out.println(expected);
+					
+					JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
+
+					//Assert.assertEquals(expected, actual);
+		}
 }
