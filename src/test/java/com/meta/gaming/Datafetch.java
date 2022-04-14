@@ -117,7 +117,26 @@ public class Datafetch {
 	}
 	
 	
-	
+	//@Test//----------Tuesday----------
+			public void JSONAssertStudent() throws IOException, JSONException
+			{
+				Response response = RestAssured.
+								given()
+									.pathParam("myPath", "list").
+									queryParam("programme", "Computer Science").queryParam("limit", "3")
+									.contentType("application/json").
+						     	when().get("/student/{myPath}");
+				
+				String actual= response.getBody().asString();
+				System.out.println(actual);
+				
+				String expected = new String(Files.readAllBytes(Paths.get("Resource\\data.txt")));
+				System.out.println(expected);
+				
+				JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
+
+				//Assert.assertEquals(expected, actual);
+			}
 
 
 	//@Test--Thursday
@@ -174,27 +193,6 @@ public class Datafetch {
 		
 	}
 	
-	
-	//@Test//----------Tuesday----------
-		public void JSONAssertStudent() throws IOException, JSONException
-		{
-			Response response = RestAssured.
-							given()
-								.pathParam("myPath", "list").
-								queryParam("programme", "Computer Science").queryParam("limit", "3")
-								.contentType("application/json").
-					     	when().get("/student/{myPath}");
-			
-			String actual= response.getBody().asString();
-			System.out.println(actual);
-			
-			String expected = new String(Files.readAllBytes(Paths.get("Resource\\data.txt")));
-			System.out.println(expected);
-			
-			JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
-
-			//Assert.assertEquals(expected, actual);
-		}
 		
 		@Test//----------Tuesday----------
 		public void JSONAssertStudentbutUsingJSONSIMPLE() throws IOException, JSONException, ParseException
@@ -215,7 +213,5 @@ public class Datafetch {
 					System.out.println(expected);
 					
 					JSONAssert.assertEquals(expected, actual, JSONCompareMode.LENIENT);
-
-					//Assert.assertEquals(expected, actual);
 		}
 }
