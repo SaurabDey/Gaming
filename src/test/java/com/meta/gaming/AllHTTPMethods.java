@@ -1,8 +1,6 @@
 package com.meta.gaming;
 
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import com.github.javafaker.Faker;
 
 import io.restassured.RestAssured;
 
-public class GamingMytest {
+public class AllHTTPMethods {
 
 	@Before
 	public void start()
