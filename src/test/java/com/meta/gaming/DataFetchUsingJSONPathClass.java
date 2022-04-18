@@ -44,7 +44,7 @@ public class DataFetchUsingJSONPathClass {
 		List<String> allvalue =	RestAssured.
 				given().contentType("application/json").
 				when().get("/student/list").
-				then().extract().path("courses[2]");
+				then().extract().path("courses[2]");//[2].courses
 
 		System.out.println("===="+allvalue);//====[Calculus, Algorithms, Software Development, Ethics]
 
@@ -52,12 +52,12 @@ public class DataFetchUsingJSONPathClass {
 		String singlevalue =	RestAssured.
 				given().contentType("application/json").
 				when().get("/student/list").
-				then().extract().path("courses[2][1]");
+				then().extract().path("courses[2][1]"); //[2].courses[1]
 
 		System.out.println("===="+singlevalue);//====Algorithms
 
 	}	
-
+// You can use https://jsonpathfinder.com/
 	@Test
 	public void getAllStudentVariousClassesInvolved()
 	{
@@ -74,6 +74,7 @@ public class DataFetchUsingJSONPathClass {
 		List<String> allvalue= valid.extract().path("courses[2]");
 
 		String fN= valid.extract().path("firstName[2]");
+		String fNJsonFintFinder= valid.extract().path("[2].firstName");
 	}
 
 }
