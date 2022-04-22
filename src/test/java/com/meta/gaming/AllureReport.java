@@ -41,6 +41,6 @@ public class AllureReport {
 	@Test
 	public void negative()
 	{
-		Assert.assertEquals("Test", "Test");
+		Assert.assertEquals("Test", "test");
 	}
 }
